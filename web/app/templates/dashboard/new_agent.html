@@ -1,0 +1,19 @@
+<div class="card-body">
+    <form method='POST' action="/dashboard/agents" >
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <input class="form-control" name="name" type="text" placeholder="Agent Name" />
+                </div>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <input class="form-control" name="description" type="text" placeholder="Description" />
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+</div>

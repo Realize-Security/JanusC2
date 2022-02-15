@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      args:
+        - DEPLOY_ENV=PROD
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    volumes:
+      - static_data:/vol/static
+      - nginx_logging:/vol/log/nginx
+
+  web:
+    container_name: app
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      target: prod
+    expose:
+      - "5000"
+    restart: always
+    volumes:
+      - static_data:/vol/static
+      - flask_logging:/vol/log
+      - uploads:/vol/uploads
+      - downloads:/vol/downloads
+      - admin_uploads:/vol/admin/uploads
+    env_file:
+      - ./.db-variables-prod.env
+      - ./.web-variables-prod.env
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:alpine3.14
+    container_name: db
+    restart: always
+    user: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.db-variables-prod.env
+
+  redis:
+    container_name: redis
+    image: redis:6.2.6
+    restart: always
+    user: redis
+
+volumes:
+  flask_logging:
+  nginx_logging:
+  static_data:
+  postgres_data:
+  uploads:
+  downloads:
+  admin_uploads:

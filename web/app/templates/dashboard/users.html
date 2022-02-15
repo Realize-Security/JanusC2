@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body class="sb-nav-fixed">
+    <div id="layoutSidenav">
+        {% include "dashboard/sidenav.html" %}
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Users</h1>
+                    <!-- <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol> -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-user me-1"></i>
+                        </div>
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Email</th>
+                              <th>Username</th>
+                              <th>Is Admin</th>
+                              <th>Is Active</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{user.email}}</td>
+                                <td>{{user.username}}</td>
+
+                                {% if user.is_admin %}
+                                    {% set admin = "Yes" %}
+                                {% else %}
+                                    {% set admin = "No" %}
+                                {% endif %}
+                                <td>{{admin}}</td>
+
+                                {% if user.is_active %}
+                                    {% set active = "Yes" %}
+                                {% else %}
+                                    {% set active = "No" %}
+                                {% endif %}  
+
+                                <td>{{active}}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+{% endblock  %}

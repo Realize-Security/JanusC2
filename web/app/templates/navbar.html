@@ -1,0 +1,51 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+      {% if 'id' in session %}
+        <button class="btn btn-link" id="sidebarToggle" ><i class="fas fa-bars"></i></button>
+      {% endif %}
+
+      {% if 'id' in session %}
+        {% set link = "/dashboard"  %}
+      {% else  -%}
+       {% set link = "/" %}
+      {% endif %}
+      <a class="navbar-brand" href={{link}}>Janus</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+
+
+      </button>
+
+      <div class="nav navbar-nav navbar-left" id="navbarsExample02">
+
+        {% if 'id' in session %}
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" >{{ session['username'] }}</a>
+            </li>
+          </ul>
+          <!-- Navbar-->
+          <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="/dashboard/settings">Settings</a></li>
+                      <li><hr class="dropdown-divider" /></li>
+                      <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                  </ul>
+              </li>
+          </ul>
+              {% else %}
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                  </li>
+                </ul>
+          {% endif %}
+      </div>
+    </div>
+</nav>

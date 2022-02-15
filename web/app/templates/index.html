@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .index_image {
+        height: 30%;
+        width: 30%;
+        margin: auto;
+        position: centre;
+    }
+
+    #index_image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+        height: 200px;
+    }
+</style>
+
+<div class="index_image">
+    <img id="index_image" src="{{url_for('static', filename='images/index.png') }}" class="img-fluid" type="image/png">
+</div>
+
+{% endblock  %}
