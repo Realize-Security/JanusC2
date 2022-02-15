@@ -5,12 +5,12 @@
 postgres-data
 flask_logging
 static_data
+uploads
+admin_uploads
 venv
 logs
 .idea/
 .scannerwork
-uploads
-admin_uploads
 
 
 # Byte-compiled / optimized / DLL files
