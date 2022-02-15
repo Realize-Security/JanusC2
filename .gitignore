@@ -9,6 +9,9 @@ venv
 logs
 .idea/
 .scannerwork
+uploads
+admin_uploads
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
