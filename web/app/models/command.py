@@ -2,6 +2,7 @@ from datetime import datetime
 import pytz
 from app import db
 import uuid
+from app.config import DBConfig
 
 
 def create_date():
@@ -13,7 +14,7 @@ class Command(db.Model):
 
     id = db.Column(db.String(36), primary_key=True)
     command = db.Column(db.String(600), nullable=True)
-    content = db.Column(db.String(100000))
+    content = db.Column(db.String(DBConfig.RESULT_MAX))
     created = db.Column(db.DateTime)
     time_received = db.Column(db.DateTime)
 

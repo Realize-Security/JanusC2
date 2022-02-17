@@ -1,6 +1,7 @@
 from app import db
 from app.models.command import Command
 from sqlalchemy.sql import text
+from app.config import DBConfig
 
 
 def create_command(command, agent_id):
@@ -17,11 +18,15 @@ def create_command(command, agent_id):
 def update_response(cmd_id, response, agent_id):
     try:
         cmd = Command.query.filter_by(id=cmd_id, agent_id=agent_id).first()
+        if len(response) > DBConfig.RESULT_MAX:
+            response = "Response too large"
         cmd.content = response
         db.session.commit()
         return True
     except Exception as e:
+        db.session.rollback()
         print(str(e))
+        update_response(cmd_id=cmd_id, response="Exception occurred", agent_id=agent_id)
     return None
 
 

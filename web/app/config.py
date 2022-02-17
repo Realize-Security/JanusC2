@@ -41,6 +41,11 @@ class SecurityConfig(object):
     ADMIN_UPLOADS = "/vol/admin/uploads/"
 
 
+class DBConfig(object):
+    """DBconfigs"""
+    RESULT_MAX = 1000000
+
+
 class LogConf(object):
     """Logging config strings"""
     LOGPATH = "/vol/log"
